@@ -1,0 +1,27 @@
+{
+  "extensions": {
+    "generated": {
+      "children": [],
+      "children_root": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compiled_at": "2026-10-04T23:07:44Z",
+      "compiler": "crumb-compile/1",
+      "digest": "sha256:c78f6eb570335a3e2b934d7e9c9f0250a7c400a79a634a7f6267370628369fb8",
+      "evidence_files": 0,
+      "evidence_root": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "files": 0,
+      "generated_at_commit": "0000000000000000000000000000000000000000",
+      "source_tree": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "invariants": [
+    "Static HTML and CSS only: no framework, scripts, tracking or external fonts.",
+    "Every figure on the page must come from aien-dev/interplane; leave out anything not in its repository.",
+    "No external projects named as users or partners.",
+    "Served from the hub Pi; no GitHub Pages workflow or CNAME here.",
+    "RFC-0001 directory coordination: sniff, claim, execute, close; .crumb.local stays ephemeral."
+  ],
+  "layer": "website",
+  "name": "interplane.io",
+  "purpose": "Source of the static interplane.io website",
+  "schema_version": "1.0.0"
+}
