@@ -42,6 +42,7 @@
 </ul>
 
 <h3>0.2, Capability benchmark: pre-registered gate FAILED</h3>
+<p class="muted">The full 0.2 report is still being written; this section shows only results already published in the repository.</p>
 <p>The protocol was pre-registered before any model run. The qualification run used 37 tasks, each run once with the full 71-tool catalog (A) and once with CrossAxis Select (B), on <code>qwen3.5:9b</code>. Overall result: <strong class="fail">FAIL</strong>.</p>
 <div class="wrap"><table>
 <tr><th>Criterion</th><th>Measured</th><th>Threshold</th><th>Result</th></tr>
@@ -56,7 +57,7 @@
 <ul>
 <li><strong>Ollama 0.34.0</strong>: 13 pass, 1 unsupported (Ollama's OpenAI path consumes the text-form tool call).</li>
 <li><strong>llama.cpp b11398</strong>: all 14 probe checks pass.</li>
-<li><strong>SGLang 0.5.20</strong>: all 14 probe checks pass in the Python probe. The Rust probe reported two failures there, caused by the model spending its token budget on reasoning, as the capture notes record.</li>
+<li><strong>SGLang 0.5.20</strong>: all 14 probe checks pass in both the Python probe and the Rust probe. The Rust probe was rerun after the two probes were aligned (interplane main commit <code>e34160f</code>); the earlier Rust run is kept in the repository as a pre-alignment record.</li>
 </ul>
 
 <h2>Roadmap</h2>
