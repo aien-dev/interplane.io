@@ -1,29 +1,50 @@
 # interplane.io
 
-Source of the static website for [INTERPLANE](https://github.com/aien-dev/interplane): one
-self-contained HTML page, no framework, no analytics or tracking scripts.
+Source of the website for [INTERPLANE](https://github.com/aien-dev/interplane), the open
+interoperability protocol between AI models and agent runtimes.
 
-- `index.html`: the whole page. Its styles are inline and its hero image is embedded as base64 WebP.
-  One small inline script drives the results tabs, the token bars and the copy button for the clone
-  command. The page loads the IBM Plex fonts from Google Fonts (`fonts.googleapis.com`,
-  `fonts.gstatic.com`), so a visitor's browser contacts Google. That is its only external request.
-  The footer still says "Draft marketing page ... not yet live", although interplane.io already
-  serves this page.
-- `public/style.css`: light and dark styles from the earlier version of the page. The current
-  `index.html` does not link it.
+The page is not written by hand. A small Rust program, `crates/site-builder`, reads the protocol
+repository's public record on GitHub (STATUS.md, ROADMAP.md, the stage reports, the latest tag,
+the open proposals and the Spark judge's verdict for the current commit of main), writes those
+facts to `facts.json`, and renders the page from Rust source plus that file. Every figure on the
+page names the commit it was read at and links to it. The editorial copy lives in
+`crates/site-builder/src/page.rs`.
 
-All figures on the page come from `aien-dev/interplane` at commit 9aff24a (STATUS.md, ROADMAP.md,
-docs/REPORT-0.1.md, bench/PROTOCOL-0.2.md, bench/runs/qual-20261004T2207Z/summary.md, qualification reports).
-Update them when those files change. They are a snapshot: `aien-dev/interplane` has moved on since
-(ROADMAP.md there records 0.2 and 0.3 as closed, while the page's roadmap section still shows 0.2 in
-progress and 0.3 specified).
+## Rules the page keeps
 
-## Hosting: hub Pi
+`site-builder verify` refuses a build that breaks any of these:
 
-The site is served from the house server ("hub", a Raspberry Pi), not from GitHub Pages. This repository
-holds the source only; it has no Pages workflow and no CNAME file. Deploying means copying `index.html`
-and `public/` into the web root on the hub and serving it for `interplane.io` and `www.interplane.io`.
-DNS for the domain (registered and hosted at Gandi) points at the hub; the orchestrator handles both.
+- no scripts, no outside fonts, no trackers; the only requests a visitor's browser makes are to interplane.io;
+- no em or en dashes;
+- the pinned commit of the protocol repository is on the page;
+- the Spark verdict is shown as it is (PASS, FAIL, RUNNING or NO VERDICT), never summarised;
+- no mention of the removed Python SDK and no "draft" footer.
+
+## Build
+
+```
+cargo build --release -p site-builder
+target/release/site-builder facts            # needs `gh` logged in; writes facts.json
+target/release/site-builder build dist       # renders dist/index.html, copies public/, facts.json
+target/release/site-builder verify dist
+```
+
+`cargo test -p site-builder` renders a sample page and runs the same rules against it.
+
+## Hosting and automation
+
+The site is served by the house server ("hub", a Raspberry Pi) behind nginx, not by GitHub Pages.
+`scripts/sync-to-hub.sh` runs from cron on the Spark once an hour: it fast-forwards a clean clone
+of this repository, rebuilds, refreshes the facts (keeping the last good facts if GitHub is
+unreachable), verifies, and copies the result to the hub only when something changed. It skips a
+run while the Spark's quiet flag is held. Its log is under `~/.local/share/interplane-site/`.
+
+## Files
+
+- `crates/site-builder/`: the generator (facts, page, verify).
+- `public/style.css`: the one stylesheet; light and dark follow the reader's system setting.
+- `public/hero.webp`: the hero illustration.
+- `scripts/sync-to-hub.sh`: the hourly deploy.
 
 ## License
 
