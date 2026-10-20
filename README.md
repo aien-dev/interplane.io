@@ -3,7 +3,7 @@
 Source of the website for [INTERPLANE](https://github.com/aien-dev/interplane), the open
 interoperability protocol between AI models and agent runtimes.
 
-Part of [Aienix](https://github.com/aien-dev/aienix), the core tree of AIEN. INTERPLANE is one of
+Part of [AienOS](https://github.com/aien-dev/aienix), the core tree of AIEN. INTERPLANE is one of
 its attachments: it lives in its own repository and plugs into the core at a boundary.
 
 **Status (2026-10-18):** live at [interplane.io](https://interplane.io). The current Rust generator
