@@ -89,7 +89,12 @@ fn verdict_class(state: &str) -> &'static str {
 pub fn verdict_word(receipt: &crate::facts::Receipt) -> &'static str {
     match receipt.state.as_str() {
         "success" => "PASS",
-        "failure" if receipt.description.starts_with("BLOCKED") && receipt.description.contains("NOT_RUN") => "BLOCKED",
+        "failure"
+            if receipt.description.starts_with("BLOCKED")
+                && receipt.description.contains("NOT_RUN") =>
+        {
+            "BLOCKED"
+        }
         "failure" => "FAIL",
         "pending" => "RUNNING",
         _ => "NO VERDICT",
@@ -97,7 +102,11 @@ pub fn verdict_word(receipt: &crate::facts::Receipt) -> &'static str {
 }
 
 fn hero(facts: &Facts) -> Markup {
-    let release = if facts.pin.latest_tag.is_empty() { "unreleased".to_string() } else { facts.pin.latest_tag.clone() };
+    let release = if facts.pin.latest_tag.is_empty() {
+        "unreleased".to_string()
+    } else {
+        facts.pin.latest_tag.clone()
+    };
     html! {
         header class="hero" {
             div class="hero-text" {
