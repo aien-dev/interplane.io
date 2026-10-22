@@ -1,0 +1,24 @@
+gate: INTERPLANE_IO-TEST
+manifest_version: 2
+owner: interplane.io
+requires:
+  - host
+inputs:
+  - Cargo.toml
+  - Cargo.lock
+  - src/
+  - crates/
+  - tests/
+  - tests/gates/
+  - crates/
+  - scripts/
+  - public/
+run:
+  exec: tests/gates/run.sh
+  args: ["test"]
+expects:
+  exit: 0
+  verdict: PASS
+timeout: 30m
+exactness: EXACT
+cache_scope: machine
