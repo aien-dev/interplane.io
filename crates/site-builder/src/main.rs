@@ -13,6 +13,7 @@
 mod discovery;
 mod facts;
 mod page;
+mod routes;
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -37,17 +38,25 @@ fn copy_dir(src: &Path, dst: &Path) -> std::io::Result<()> {
 fn build(dist: &Path, facts_path: &Path) -> Result<(), String> {
     let facts = Facts::load(facts_path)?;
     fs::create_dir_all(dist).map_err(|e| format!("{}: {e}", dist.display()))?;
-    let html = page::render(&facts);
-    fs::write(dist.join("index.html"), &html).map_err(|e| e.to_string())?;
+    for route in routes::ALL {
+        let file=dist.join(route.file());
+        fs::create_dir_all(file.parent().unwrap()).map_err(|e|e.to_string())?;
+        fs::write(&file,page::render_route(&facts,route)).map_err(|e|e.to_string())?;
+        println!("built {}",file.display());
+    }
     copy_dir(Path::new("public"), &dist.join("public")).map_err(|e| format!("public/: {e}"))?;
     fs::copy(facts_path, dist.join("facts.json")).map_err(|e| e.to_string())?;
     discovery::write(dist, &facts)?;
-    println!("built {} ({} bytes) from {}@{}", dist.join("index.html").display(), html.len(), facts.pin.full_name, &facts.pin.sha[..12.min(facts.pin.sha.len())]);
+    println!("built {} routes from {}@{}", routes::ALL.len(), facts.pin.full_name, facts.pin.sha);
     Ok(())
 }
 
 /// The site rules, enforced on the rendered output so a copy change cannot slip past them.
 pub fn verify_html(html: &str, css: &str) -> Vec<String> {
+    verify_page_html(html,css,true)
+}
+
+fn verify_page_html(html: &str, css: &str, home: bool) -> Vec<String> {
     let mut problems = Vec::new();
     let mut need = |cond: bool, msg: &str| {
         if !cond {
@@ -63,11 +72,13 @@ pub fn verify_html(html: &str, css: &str) -> Vec<String> {
     need(!html.contains("Draft marketing page"), "the old draft footer is on the page");
     need(!html.contains("not yet live"), "the page calls itself not live");
     need(!html.contains("Python SDK"), "the removed Python SDK is mentioned");
+    if home {
     need(html.contains("id=\"status\""), "missing status section");
     need(html.contains("id=\"receipt\""), "missing receipt section");
     need(html.contains("id=\"modules\""), "missing modules section");
     need(html.contains("public/hero.webp"), "missing hero image");
-    need(html.contains("href=\"facts.json\""), "missing facts.json link");
+    }
+    need(html.contains("href=\"facts.json\"") || html.contains("href=\"/facts.json\""), "missing facts.json link");
     need(html.contains("<title>INTERPLANE: "), "missing title");
     need(html.contains("og:title"), "missing og:title");
     for host in ["googletagmanager", "google-analytics", "plausible", "cloudflareinsights", "umami"] {
@@ -92,22 +103,22 @@ fn verify(dist: &Path) -> Result<(), String> {
     let html = fs::read_to_string(dist.join("index.html")).map_err(|e| format!("index.html: {e}"))?;
     let css = fs::read_to_string(dist.join("public/style.css")).map_err(|e| format!("public/style.css: {e}"))?;
     let facts = Facts::load(&dist.join("facts.json"))?;
-    let mut problems = verify_html(&html, &css);
-    problems.extend(discovery::verify(dist, &html, &facts));
+    let mut problems = Vec::new();
     if !dist.join("public/hero.webp").exists() {
         problems.push("public/hero.webp missing from dist".to_string());
     }
-    // The hand-copied receipt figures must agree with the STATUS row they come from.
+    for route in routes::ALL {
+        let file=dist.join(route.file());
+        let body=fs::read_to_string(&file).map_err(|e|format!("{}: {e}",file.display()))?;
+        let mut page_problems=if route==routes::Route::Overview {verify_html(&body,&css)} else {verify_page_html(&body,&css,false)};
+        page_problems.extend(discovery::verify(dist,&body,&facts,route));
+        if !body.contains(&format!("<code>{}</code>",facts.pin.sha)) {page_problems.push("the full visible source pin is missing".into());}
+        if facts.receipt.state=="success" && !body.contains(">PASS<") {page_problems.push("a passing verdict is not shown as PASS".into());}
+        if facts.receipt.state=="failure" && !body.contains(">FAIL<") && !body.contains(">BLOCKED<") {page_problems.push("a failing verdict is not shown as FAIL or BLOCKED".into());}
+        problems.extend(page_problems.into_iter().map(|p|format!("{}: {p}",route.path())));
+    }
+    // Preserve the original homepage receipt check/display; doc routes reuse canonical facts.
     let status_md_hint = format!("{} -> {} tools, {}% fewer", page::RECEIPT_TOOLS_BEFORE, page::RECEIPT_TOOLS_AFTER, page::RECEIPT_CUT_PERCENT);
-    if !html.contains(&facts.pin.sha) {
-        problems.push("the pinned commit is not on the page".to_string());
-    }
-    if facts.receipt.state == "success" && !html.contains(">PASS<") {
-        problems.push("a passing verdict is not shown as PASS".to_string());
-    }
-    if facts.receipt.state == "failure" && !html.contains(">FAIL<") && !html.contains(">BLOCKED<") {
-        problems.push("a failing verdict is not shown as FAIL or BLOCKED".to_string());
-    }
     if problems.is_empty() {
         println!("verified {} ({} bytes); receipt figures: {status_md_hint}", dist.join("index.html").display(), html.len());
         Ok(())
@@ -241,7 +252,7 @@ mod tests {
         for (from, to) in [
             ("rel=\"canonical\" href=\"https://interplane.io/\"", "rel=\"canonical\" href=\"https://wrong.example/\""),
             ("https://interplane.io/public/hero.webp", "https://wrong.example/missing.webp"),
-            ("href=\"facts.json\"", "href=\"missing.json\""),
+            ("href=\"/facts.json\"", "href=\"/missing.json\""),
             ("SoftwareSourceCode", "FakeSoftware"),
         ] {
             assert!(original.contains(from));
@@ -262,6 +273,49 @@ mod tests {
         }
         fs::write(&index, original).unwrap();
         assert!(verify(&out).is_ok());
+        fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn quick_start_matches_the_observed_pinned_example() {
+        let html=page::render_route(&sample(),routes::Route::QuickStart);
+        assert!(html.contains("OK: the injected actions were denied or held; none executed."));
+        assert!(!html.contains("Offline example: PASS"));
+        assert!(html.contains("cargo fetch --locked"));
+        assert!(html.contains("cargo run --locked --offline"));
+        assert!(html.contains("network access for the clone"));
+        assert!(html.contains("git checkout --detach b669d06e21c9debb15073289d7c0b78b1b2d362c"));
+    }
+
+    #[test]
+    fn onboarding_routes_are_complete_unique_and_verified() {
+        use std::collections::BTreeSet;
+        let dir = std::env::temp_dir().join(format!("interplane-onboarding-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let input=dir.join("input.json"); let f=sample(); f.save(&input).unwrap();
+        let out=dir.join("dist");
+        std::env::set_current_dir(concat!(env!("CARGO_MANIFEST_DIR"), "/../..")).unwrap();
+        build(&out,&input).unwrap();
+        let mut titles=BTreeSet::new(); let mut descriptions=BTreeSet::new(); let mut canonicals=BTreeSet::new();
+        for path in ["", "quick-start/", "concepts/", "adapter/", "conformance/", "status/"] {
+            let file=out.join(path).join("index.html");
+            let html=fs::read_to_string(&file).unwrap_or_else(|_| panic!("missing onboarding route {path}"));
+            let title=html.split_once("<title>").unwrap().1.split_once("</title>").unwrap().0.to_string();
+            let description=html.split_once("name=\"description\" content=\"").unwrap().1.split_once('"').unwrap().0.to_string();
+            let canonical=html.split_once("rel=\"canonical\" href=\"").unwrap().1.split_once('"').unwrap().0.to_string();
+            assert_eq!(canonical, format!("https://interplane.io/{path}"));
+            assert!(titles.insert(title)); assert!(descriptions.insert(description)); assert!(canonicals.insert(canonical));
+            assert!(html.contains(&f.pin.sha), "source pin absent on {path}");
+            for link in ["/", "/quick-start/", "/concepts/", "/adapter/", "/conformance/", "/status/"] {
+                assert!(html.contains(&format!("href=\"{link}\"")), "missing navigation {link} on {path}");
+            }
+            assert_eq!(html.matches("<h1").count(),1);
+        }
+        assert_eq!(titles.len(),6); assert!(verify(&out).is_ok());
+        let page=out.join("quick-start/index.html"); let original=fs::read_to_string(&page).unwrap();
+        fs::write(&page,original.replace("https://interplane.io/quick-start/", "https://wrong.example/")).unwrap();
+        assert!(verify(&out).is_err()); fs::write(&page,original).unwrap();
+        fs::remove_file(&page).unwrap(); assert!(verify(&out).is_err());
         fs::remove_dir_all(dir).unwrap();
     }
 
