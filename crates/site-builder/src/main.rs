@@ -248,6 +248,18 @@ mod tests {
             fs::write(&index, original.replace(from, to)).unwrap();
             assert!(verify(&out).is_err(), "corruption {from} must be refused");
         }
+        fs::write(&index, original.clone()).unwrap();
+        for duplicate in [
+            "<link rel=\"canonical\" href=\"https://attacker.example/\">",
+            "<meta property=\"og:image\" content=\"https://attacker.example/image.webp\">",
+            "<LINK REL='canonical' HREF='https://attacker.example/'>",
+            "<META PROPERTY='og:image' CONTENT='https://attacker.example/image.webp'>",
+        ] {
+            for mutated in [format!("{original}{duplicate}"), original.replace("</head>", &format!("{duplicate}</head>"))] {
+                fs::write(&index, mutated).unwrap();
+                assert!(verify(&out).is_err(), "conflicting metadata must be refused: {duplicate}");
+            }
+        }
         fs::write(&index, original).unwrap();
         assert!(verify(&out).is_ok());
         fs::remove_dir_all(dir).unwrap();

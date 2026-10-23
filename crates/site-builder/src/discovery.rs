@@ -101,6 +101,24 @@ pub fn verify(dist: &Path, html: &str, f: &Facts) -> Vec<String> {
             problems.push(format!("missing or wrong metadata: {marker}"));
         }
     }
+    // This is a generated-output invariant, not an HTML sanitizer. Require the complete
+    // generated head, and refuse extra metadata anywhere (browsers may honor body metadata).
+    // Presence checks alone accept a valid canonical alongside a conflicting second one.
+    let expected = page::render(f);
+    let head = |s: &str| {
+        s.split_once("<head>")
+            .and_then(|(_, rest)| rest.split_once("</head>").map(|(head, _)| head.to_owned()))
+    };
+    if head(html).is_none() || head(html) != head(&expected) {
+        problems.push("head metadata differs from the generated facts-bound head".into());
+    }
+    let lower = html.to_ascii_lowercase();
+    let expected_lower = expected.to_ascii_lowercase();
+    for tag in ["<head", "</head", "<link", "<meta"] {
+        if lower.matches(tag).count() != expected_lower.matches(tag).count() {
+            problems.push(format!("extra or missing metadata tag {tag}"));
+        }
+    }
     // Maud writes quoted attributes. Check every generated local href/src, including fragments.
     for attr in ["href=\"", "src=\""] {
         for rest in html.split(attr).skip(1) {
