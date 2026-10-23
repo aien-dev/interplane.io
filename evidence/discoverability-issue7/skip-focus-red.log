@@ -1,0 +1,22 @@
+   Compiling site-builder v0.2.0 (/Users/drakestapleton/.hermes/cache/scratch/loop-interplane-site7-20261023/crates/site-builder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.57s
+     Running unittests src/main.rs (target/debug/deps/site_builder-5e56a96010e7f5a5)
+
+running 1 test
+test tests::discoverability_is_inert_pinned_and_html_safe ... FAILED
+
+failures:
+
+---- tests::discoverability_is_inert_pinned_and_html_safe stdout ----
+
+thread 'tests::discoverability_is_inert_pinned_and_html_safe' (760133) panicked at crates/site-builder/src/main.rs:214:9:
+skip target must be focusable
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::discoverability_is_inert_pinned_and_html_safe
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p site-builder --bin site-builder`

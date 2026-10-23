@@ -1,0 +1,36 @@
+{
+  "width": 390,
+  "scrollWidth": 390,
+  "overflow": false,
+  "unnamedLinks": 0,
+  "unlabelledImages": 0,
+  "headingLevels": [
+    "H1",
+    "H2",
+    "H2",
+    "H3",
+    "H3",
+    "H3",
+    "H3",
+    "H3",
+    "H3",
+    "H3",
+    "H2",
+    "H2",
+    "H3",
+    "H3",
+    "H3",
+    "H3",
+    "H2"
+  ],
+  "codeLabels": [
+    [
+      "language-sh",
+      "Shell commands"
+    ]
+  ],
+  "requests": [
+    "http://127.0.0.1:18727/public/style.css",
+    "http://127.0.0.1:18727/public/hero.webp"
+  ]
+}

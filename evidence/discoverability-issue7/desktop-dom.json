@@ -1,0 +1,32 @@
+{
+  "width": 1309,
+  "scrollWidth": 1309,
+  "focus": "main",
+  "hash": "#main",
+  "scripts": [
+    "application/ld+json"
+  ],
+  "resources": [
+    "http://127.0.0.1:18727/public/style.css",
+    "http://127.0.0.1:18727/public/hero.webp"
+  ],
+  "json": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@id": "https://interplane.io/",
+        "@type": "WebSite",
+        "description": "INTERPLANE is an open interoperability protocol between AI models and agent runtimes. Models express intent. Runtimes retain authority.",
+        "name": "INTERPLANE",
+        "url": "https://interplane.io/"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "codeRepository": "https://github.com/aien-dev/interplane-mv",
+        "description": "INTERPLANE: open interoperability protocol between AI models and agent runtimes. Models express intent. Runtimes retain authority.",
+        "name": "INTERPLANE protocol",
+        "version": "b669d06e21c9debb15073289d7c0b78b1b2d362c"
+      }
+    ]
+  }
+}

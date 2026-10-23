@@ -1,0 +1,78 @@
+{
+  "schema": "interplane-discoverability-qualification/1",
+  "protocol_sha": "b669d06e21c9debb15073289d7c0b78b1b2d362c",
+  "heading_sequence": [
+    1,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    2
+  ],
+  "pinned_source_links": [
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/CORE.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/CORE.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/LENSHIFT.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/CROSSAXIS.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/CROSSVEIL.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/PROBE.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/VECTORVEIL.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/spec/RELAYLINE.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.1.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.1.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.2.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.3.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/STATUS.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.1.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.2.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.2x.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.3.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-adapter-repro.md",
+    "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/WRITING-AN-ADAPTER.md"
+  ],
+  "cli_controls": [
+    {
+      "case": "valid",
+      "exit": 0,
+      "stdout": "verified /Users/drakestapleton/.hermes/cache/scratch/loop-interplane-site7-20261023/dist/index.html (14432 bytes); receipt figures: 71 -> 9 tools, 89% fewer\n",
+      "stderr": ""
+    },
+    {
+      "case": "executable-script",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "site-builder verify: invalid or executable script in index.html\nJSON-LD does not match the pinned visible facts\n"
+    },
+    {
+      "case": "wrong-canonical",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "site-builder verify: missing or wrong metadata: rel=\"canonical\" href=\"https://interplane.io/\"\n"
+    },
+    {
+      "case": "invalid-json",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "site-builder verify: invalid or executable script in index.html\nJSON-LD does not match the pinned visible facts\n"
+    },
+    {
+      "case": "missing-local-link",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "site-builder verify: missing facts.json link\nmissing local target missing.json\nmissing local target missing.json\n"
+    }
+  ],
+  "local_only": true,
+  "limitation": "Single current route; issue6 route expansion, deployed HTTP and organic ranking are not qualified here."
+}
