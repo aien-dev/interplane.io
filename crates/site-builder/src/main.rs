@@ -6,10 +6,11 @@
 //! site-builder verify [dist]                refuse a page that breaks the site rules
 //! ```
 //!
-//! The page is rendered from Rust source plus the facts file. No scripts, no outside fonts, no
+//! The page is rendered from Rust source plus the facts file. No executable scripts, no outside fonts, no
 //! trackers, no em or en dashes, and no figure that does not resolve to a record in the
 //! protocol repository.
 
+mod discovery;
 mod facts;
 mod page;
 
@@ -40,16 +41,7 @@ fn build(dist: &Path, facts_path: &Path) -> Result<(), String> {
     fs::write(dist.join("index.html"), &html).map_err(|e| e.to_string())?;
     copy_dir(Path::new("public"), &dist.join("public")).map_err(|e| format!("public/: {e}"))?;
     fs::copy(facts_path, dist.join("facts.json")).map_err(|e| e.to_string())?;
-    fs::write(dist.join("robots.txt"), format!("User-agent: *\nAllow: /\nSitemap: {}sitemap.xml\n", page::SITE_URL)).map_err(|e| e.to_string())?;
-    fs::write(
-        dist.join("sitemap.xml"),
-        format!(
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>{}</loc><lastmod>{}</lastmod></url>\n</urlset>\n",
-            page::SITE_URL,
-            facts.generated_at.split('T').next().unwrap_or("")
-        ),
-    )
-    .map_err(|e| e.to_string())?;
+    discovery::write(dist, &facts)?;
     println!("built {} ({} bytes) from {}@{}", dist.join("index.html").display(), html.len(), facts.pin.full_name, &facts.pin.sha[..12.min(facts.pin.sha.len())]);
     Ok(())
 }
@@ -65,7 +57,7 @@ pub fn verify_html(html: &str, css: &str) -> Vec<String> {
     need(!html.contains('\u{2014}'), "em dash in index.html");
     need(!html.contains('\u{2013}'), "en dash in index.html");
     need(!css.contains('\u{2014}') && !css.contains('\u{2013}'), "dash in style.css");
-    need(!html.contains("<script"), "a script in index.html");
+    need(discovery::json_block(html).is_ok(), "invalid or executable script in index.html");
     need(!html.contains("fonts.googleapis") && !html.contains("fonts.gstatic") && !css.contains("@import") && !css.contains("fonts.g"), "an outside font");
     need(!html.contains("href=\"http://"), "a plain http link");
     need(!html.contains("Draft marketing page"), "the old draft footer is on the page");
@@ -101,6 +93,7 @@ fn verify(dist: &Path) -> Result<(), String> {
     let css = fs::read_to_string(dist.join("public/style.css")).map_err(|e| format!("public/style.css: {e}"))?;
     let facts = Facts::load(&dist.join("facts.json"))?;
     let mut problems = verify_html(&html, &css);
+    problems.extend(discovery::verify(dist, &html, &facts));
     if !dist.join("public/hero.webp").exists() {
         problems.push("public/hero.webp missing from dist".to_string());
     }
@@ -194,6 +187,70 @@ mod tests {
         assert!(html.contains("83df0f074b2c"));
         assert!(html.contains("106 of 106"));
         assert!(html.contains("v0.3.0"));
+    }
+
+    #[test]
+    fn discoverability_is_inert_pinned_and_html_safe() {
+        let mut f = sample();
+        f.pin.description = "literal </script><script>alert(1)</script> & text".into();
+        let html = page::render(&f);
+        let prefix = "<script type=\"application/ld+json\">";
+        let (_, rest) = html.split_once(prefix).expect("missing structured data");
+        let (raw, _) = rest.split_once("</script>").unwrap();
+        let data: serde_json::Value = serde_json::from_str(raw).expect("valid JSON-LD");
+        assert_eq!(data["@context"], "https://schema.org");
+        let graph = data["@graph"].as_array().unwrap();
+        assert_eq!(graph.len(), 2);
+        assert_eq!(graph[0]["@type"], "WebSite");
+        assert_eq!(graph[1]["@type"], "SoftwareSourceCode");
+        assert_eq!(graph[1]["version"], f.pin.sha);
+        assert_eq!(graph[1]["codeRepository"], f.pin.url);
+        assert_eq!(graph[1]["description"], f.pin.description);
+        assert!(!raw.contains('<') && !raw.contains('&'));
+        assert!(verify_html(&html, "").is_empty());
+        assert!(!verify_html(&(html.clone() + "<SCRIPT>alert(1)</SCRIPT>"), "").is_empty());
+        assert!(!verify_html(&html.replace(raw, "not json"), "").is_empty());
+        assert!(html.contains("class=\"language-sh\""));
+        assert!(html.contains("main id=\"main\" tabindex=\"-1\""), "skip target must be focusable");
+    }
+
+    #[test]
+    fn built_discovery_files_and_corruption_are_verified() {
+        let dir = std::env::temp_dir().join(format!("interplane-discovery-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let facts_path = dir.join("input.json");
+        let f = sample();
+        f.save(&facts_path).unwrap();
+        let out = dir.join("dist");
+        // CLI build is run at repository root; Cargo runs unit tests in the crate directory.
+        std::env::set_current_dir(concat!(env!("CARGO_MANIFEST_DIR"), "/../..")).unwrap();
+        build(&out, &facts_path).unwrap();
+        let llms = fs::read_to_string(out.join("llms.txt")).expect("missing llms.txt");
+        assert!(llms.contains(page::SITE_URL) && llms.contains(&f.blob("STATUS.md")));
+        assert!(!fs::read_to_string(out.join("sitemap.xml")).unwrap().contains("<lastmod>"));
+        assert!(verify(&out).is_ok());
+        for file in ["llms.txt", "robots.txt", "sitemap.xml", "public/hero.webp"] {
+            let path = out.join(file);
+            let original = fs::read(&path).unwrap();
+            fs::remove_file(&path).unwrap();
+            assert!(verify(&out).is_err(), "missing {file} must be refused");
+            fs::write(path, original).unwrap();
+        }
+        let index = out.join("index.html");
+        let original = fs::read_to_string(&index).unwrap();
+        for (from, to) in [
+            ("rel=\"canonical\" href=\"https://interplane.io/\"", "rel=\"canonical\" href=\"https://wrong.example/\""),
+            ("https://interplane.io/public/hero.webp", "https://wrong.example/missing.webp"),
+            ("href=\"facts.json\"", "href=\"missing.json\""),
+            ("SoftwareSourceCode", "FakeSoftware"),
+        ] {
+            assert!(original.contains(from));
+            fs::write(&index, original.replace(from, to)).unwrap();
+            assert!(verify(&out).is_err(), "corruption {from} must be refused");
+        }
+        fs::write(&index, original).unwrap();
+        assert!(verify(&out).is_ok());
+        fs::remove_dir_all(dir).unwrap();
     }
 
     #[test]

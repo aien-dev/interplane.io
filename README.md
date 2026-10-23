@@ -20,7 +20,10 @@ page names the commit it was read at and links to it. The editorial copy lives i
 
 `site-builder verify` refuses a build that breaks any of these:
 
-- no scripts, no outside fonts, no trackers; the only requests a visitor's browser makes are to interplane.io;
+- no executable scripts, no outside fonts, no trackers; the only requests a visitor's browser makes are to interplane.io;
+- one strictly parsed, HTML-safe `application/ld+json` block describes the website and exact protocol source pin; it runs no code;
+- crawler files and every generated local target must match the build; `llms.txt` links only the current page and pinned protocol documentation;
+- sitemap dates are omitted rather than using hourly fetch time as a content-change date;
 - no em or en dashes;
 - the pinned commit of the protocol repository is on the page;
 - the Spark verdict is shown as it is (PASS, FAIL, BLOCKED, RUNNING or NO VERDICT), never summarised;

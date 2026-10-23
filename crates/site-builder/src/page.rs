@@ -70,6 +70,7 @@ fn head(facts: &Facts) -> Markup {
             link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101317'/%3E%3Crect x='6' y='15' width='20' height='2' fill='%23f2a93b'/%3E%3C/svg%3E";
             link rel="stylesheet" href="public/style.css";
             link rel="alternate" type="application/json" href="facts.json" title="Facts behind this page";
+            (maud::PreEscaped(crate::discovery::script(facts)))
         }
     }
 }
@@ -267,7 +268,7 @@ fn get_started(facts: &Facts) -> Markup {
         section id="start" class="prose" {
             h2 { "Try it in a minute, offline" }
             p { "No model, no GPU, no network. A scripted model fetches a page that carries an injected instruction, then asks to send an email, write a file and append a note. The reference pipeline denies the email and the write, holds the note for a person, and executes none of them." }
-            pre { code { "git clone " (facts.pin.url) ".git\ncd interplane/rust\ncargo run -q -p interplane-crossveil --example offline" } }
+            pre { code class="language-sh" aria-label="Shell commands" { "git clone " (facts.pin.url) ".git\ncd interplane/rust\ncargo run -q -p interplane-crossveil --example offline" } }
             p { "To connect your own program, read " a href=(facts.blob("docs/WRITING-AN-ADAPTER.md")) { "Writing an adapter" } " and run its to-do list example. The conformance suite then checks your adapter the same way it checks the reference." }
         }
     }
@@ -276,7 +277,7 @@ fn get_started(facts: &Facts) -> Markup {
 fn footer(facts: &Facts) -> Markup {
     html! {
         footer {
-            p { "INTERPLANE is developed in the open by " a href="https://github.com/aien-dev" { "aien-dev" } " as part of " a href="https://www.aienos.com/" { "AIEN" } ". Protocol and reference implementation: " (facts.pin.license) ". " a href=(SITE_REPO) { "This site" } " is built by a small Rust program from the repository's public record; no scripts, no outside fonts, no trackers." }
+            p { "INTERPLANE is developed in the open by " a href="https://github.com/aien-dev" { "aien-dev" } " as part of " a href="https://www.aienos.com/" { "AIEN" } ". Protocol and reference implementation: " (facts.pin.license) ". " a href=(SITE_REPO) { "This site" } " is built by a small Rust program from the repository's public record; no executable scripts, no outside fonts, no trackers." }
         }
     }
 }
@@ -289,7 +290,7 @@ pub fn render(facts: &Facts) -> String {
             body {
                 a class="skip" href="#main" { "Skip to content" }
                 (hero(facts))
-                main id="main" {
+                main id="main" tabindex="-1" {
                     (problem())
                     (modules(facts))
                     (receipt(facts))
