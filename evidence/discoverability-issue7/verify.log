@@ -1,3 +1,0 @@
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
-     Running `target/debug/site-builder verify dist`
-verified dist/index.html (14432 bytes); receipt figures: 71 -> 9 tools, 89% fewer

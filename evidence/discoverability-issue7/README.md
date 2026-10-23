@@ -36,6 +36,12 @@ python3 evidence/discoverability-issue7/qualify.py
 
 The initial setup run used Cargo's inherited system temporary directory; subsequent successful tests explicitly use the Hermes scratch TMPDIR. Screenshots preserve the existing design, not a redesign. Browser tooling may add a title marker; generated HTML remains authoritative.
 
+## Independent review and correction
+
+L632 independently ran the original 11-test suite and found a real Important false-negative: duplicate conflicting canonical/image tags were accepted beside the expected tags. The parent reproduced it as a failing regression, then made one corrective pass. Verification now requires the exact facts-bound generated head and matching whole-document metadata-tag counts. Eight head/body, canonical/image and case/quote variants are refused; the original reviewer's scratch input now exits 1 while the authentic output still exits 0. See `review-duplicate-red.log.gz`, `review-correction-tests.log.gz` and `review-correction.json`. This is test-backed parent disposition of the returned review, not a claim that a second independent review ran.
+
+Raw logs are stored as `.log.gz` to preserve their exact original bytes, including terminal trailing blank lines, without producing patch-whitespace errors. `raw-log-storage.json` records their original SHA256 values; decompression was verified byte-for-byte. No historical receipt text was rewritten. `source-artifact-manifest.json` identifies the original reviewed source; `final-source-artifact-manifest.json` identifies the corrected source and rebuilt binary. Generated HTML is unchanged by the verifier-only correction, so the original browser receipts remain applicable.
+
 ## Limits
 
 This is accessibility/mobile smoke testing, not a full WCAG certification. JSON-LD verification is a generated-output invariant, not a general untrusted-HTML sanitizer. One current route is qualified; future developer pages need unique per-route metadata when issue 6 adds them. No Markdown mirror was added: the site is already static readable HTML and pinned canonical Markdown remains upstream. Public deployment, live HTTP crawler endpoints, integrated review and organic search effects are separate from this candidate.

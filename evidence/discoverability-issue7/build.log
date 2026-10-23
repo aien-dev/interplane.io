@@ -1,4 +1,0 @@
-   Compiling site-builder v0.2.0 (/Users/drakestapleton/.hermes/cache/scratch/loop-interplane-site7-20261023/crates/site-builder)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.44s
-     Running `target/debug/site-builder build dist facts.json`
-built dist/index.html (14432 bytes) from aien-dev/interplane-mv@b669d06e21c9
