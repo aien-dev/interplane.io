@@ -277,6 +277,24 @@ mod tests {
     }
 
     #[test]
+    fn remote_src_is_refused_but_external_links_remain_valid() {
+        let dir=std::env::temp_dir().join(format!("interplane-remote-src-{}",std::process::id()));
+        fs::create_dir_all(&dir).unwrap();let input=dir.join("input.json");sample().save(&input).unwrap();
+        let out=dir.join("dist");
+        std::env::set_current_dir(concat!(env!("CARGO_MANIFEST_DIR"),"/../..")).unwrap();
+        build(&out,&input).unwrap();assert!(verify(&out).is_ok());
+        for route in routes::ALL {
+            let file=out.join(route.file());let original=fs::read_to_string(&file).unwrap();
+            fs::write(&file,original.replace("</body>","<img src=\"https://tracker.example/pixel\" alt=\"tracking control\"></body>")).unwrap();
+            assert!(verify(&out).is_err(),"remote resource accepted on {}",route.path());
+            fs::write(&file,original.replace("</body>","<a href=\"https://github.com/aien-dev\">External navigation</a><img src=\"/public/hero.webp\" alt=\"local control\"></body>")).unwrap();
+            assert!(verify(&out).is_ok(),"legal navigation or local resource refused on {}",route.path());
+            fs::write(&file,original).unwrap();
+        }
+        fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
     fn quick_start_matches_the_observed_pinned_example() {
         let html=page::render_route(&sample(),routes::Route::QuickStart);
         assert!(html.contains("OK: the injected actions were denied or held; none executed."));

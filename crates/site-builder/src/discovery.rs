@@ -116,7 +116,15 @@ pub fn verify(dist: &Path, html: &str, f: &Facts, route: Route) -> Vec<String> {
                 problems.push("unclosed link".into());
                 continue;
             };
-            if url.starts_with("https://") || url.starts_with("data:") {
+            if url.starts_with("https://") {
+                // Navigation may leave the site; automatically loaded resources may not.
+                // Generated resources use checked local paths, never network src URLs.
+                if attr == "src=\"" {
+                    problems.push(format!("network-loaded src forbidden; use a local asset: {url}"));
+                }
+                continue;
+            }
+            if url.starts_with("data:") {
                 continue;
             }
             let (path, fragment) = url
