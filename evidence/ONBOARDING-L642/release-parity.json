@@ -1,0 +1,19 @@
+{
+  "source": "fcb834efeab2e323dfebf1f9ee761d743770e171",
+  "identical_files": 12,
+  "file_hashes": {
+    "llms.txt": "9f766660533921519339e4dbe5667ecc4ea07477a27d8c4e2632cea4c30c85ba",
+    "index.html": "c922c5a71b9297029d10544583716a0d70f20aad1f0279cf168b2cf9ceec7a47",
+    "sitemap.xml": "b0fe961d08fcd7db753947f781106dbfb1fb35a707543e3e95390758e34d27c4",
+    "facts.json": "0803aaab1da4db176bc1c43272c67d1dbf26c9047928a26137eb3cc7b56273f8",
+    "robots.txt": "0defd681f8cf39691173be8927654eb15f0a28adcb20527e8e19d2edc7be25c1",
+    "adapter/index.html": "b5e5ab5812a850f86343545db009f04a52e1b35db84dbc9b19a50741fd53114a",
+    "status/index.html": "cbfcbaeca900eccf306d2d96170f4663dc8d13a220312f45b6a51f4bc1402c35",
+    "public/hero.webp": "366d3a527d4799baea43cba4805de2acef7687f8b92d12b85f8ce5bafd028101",
+    "public/style.css": "2855cfdabcf0f9c23ae414996601ff48545f3bb4eb5d1db58519df8fc8f86544",
+    "concepts/index.html": "5159894949e61039ff8335412bb8eec7fcef34ebd3a365ac443eae3a1a707bbe",
+    "quick-start/index.html": "550493ba40ea037154ddd82d3c6d0ad215b0c03bb40565b928e939c7213e8907",
+    "conformance/index.html": "c97ff7b9c3c0383e3d0ea080dca0b714d23152d0c0b41a845444eba947142b85"
+  },
+  "release_binary_sha256": "f6605fe079ea4a5b4279cfb776b47d7ca9291cdb477ab7523af463a76d0273aa"
+}

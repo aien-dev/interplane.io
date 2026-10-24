@@ -1,0 +1,50 @@
+{
+  "format": "gzip with byte-exact original payload, no whitespace edits",
+  "logs": [
+    {
+      "original": "build.log",
+      "compressed": "build.log.gz",
+      "raw_sha256": "ee5bc3ca69b0cf72a51410a718bfaf4314f5aeadf3be04e8e01142789805efce"
+    },
+    {
+      "original": "final-tests.log",
+      "compressed": "final-tests.log.gz",
+      "raw_sha256": "544881b00539e1b24b8359c53861f8a030f10bc8fe355ad054709c713e0dbf30"
+    },
+    {
+      "original": "green.log",
+      "compressed": "green.log.gz",
+      "raw_sha256": "376b872078538da0efd08722049de9731bb631614f5108a915d5a9e136c9ae88"
+    },
+    {
+      "original": "red-fixture-corrected.log",
+      "compressed": "red-fixture-corrected.log.gz",
+      "raw_sha256": "c3a102f4631f019afc6a37f31fea52e8a4a4e6173399655c50ba6e26aa9f193f"
+    },
+    {
+      "original": "red.log",
+      "compressed": "red.log.gz",
+      "raw_sha256": "f6aa1f569c6f1c178ee6e646fb23f32ff09a12ccb0304fb9051e61b596ff88cd"
+    },
+    {
+      "original": "review-correction-tests.log",
+      "compressed": "review-correction-tests.log.gz",
+      "raw_sha256": "df5a8dbba9e58e4f09fdf6d0d4cff86fcf7e38866df039a86ef4053ac10b88e4"
+    },
+    {
+      "original": "review-duplicate-red.log",
+      "compressed": "review-duplicate-red.log.gz",
+      "raw_sha256": "09cd19fe513f8b93227738f4013a9dee8949b84b7c22f4ac4a3e2e8dfbedbe73"
+    },
+    {
+      "original": "skip-focus-red.log",
+      "compressed": "skip-focus-red.log.gz",
+      "raw_sha256": "8d7245f8c18679635bc87770064a9dc42f1447c944122629ae49f7a6937f19da"
+    },
+    {
+      "original": "verify.log",
+      "compressed": "verify.log.gz",
+      "raw_sha256": "3b31ccd0a68736114cd19f6ea4560ce8ef6af9d81b3fab4dc1c80093fba4fde9"
+    }
+  ]
+}

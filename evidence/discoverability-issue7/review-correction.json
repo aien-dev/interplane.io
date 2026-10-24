@@ -1,0 +1,26 @@
+{
+  "original_review": "L632 deleg_6418a3b6: Important duplicate canonical/image false-negative; independent11/11 suite PASS",
+  "original_head": "881f19c072bcb4dd0789605fc091a552245275b1",
+  "disposition": "Fixed in one parent pass: exact facts-bound generated head plus case-insensitive whole-document metadata tag counts. Eight added duplicate variants cover canonical/image, head/body, mixed-case/single-quote forms. Functional output HTML unchanged; original screenshots remain applicable. No claim of arbitrary hostile HTML sanitization.",
+  "valid": {
+    "command": [
+      "/Users/drakestapleton/.hermes/cache/scratch/loop-interplane-site7-20261023/target/debug/site-builder",
+      "verify",
+      "/Users/drakestapleton/.hermes/cache/scratch/loop-interplane-site7-20261023/dist"
+    ],
+    "exit": 0,
+    "stdout": "verified /Users/drakestapleton/.hermes/cache/scratch/loop-interplane-site7-20261023/dist/index.html (14432 bytes); receipt figures: 71 -> 9 tools, 89% fewer\n",
+    "stderr": ""
+  },
+  "original_reviewer_probe": {
+    "command": [
+      "/Users/drakestapleton/.hermes/cache/scratch/loop-interplane-site7-20261023/target/debug/site-builder",
+      "verify",
+      "/Users/drakestapleton/.hermes/cache/scratch/l632-duplicate-metadata"
+    ],
+    "exit": 1,
+    "stdout": "",
+    "stderr": "site-builder verify: head metadata differs from the generated facts-bound head\nextra or missing metadata tag <link\nextra or missing metadata tag <meta\n"
+  },
+  "binary_sha256": "7ce6e1dcc5db153772b1bd94b7b76b348b7c4c931248616813f3a2e8797e17d0"
+}
