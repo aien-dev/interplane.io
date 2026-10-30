@@ -3,8 +3,11 @@
 Source of the website for [INTERPLANE](https://github.com/aien-dev/interplane), the open
 interoperability protocol between AI models and agent runtimes.
 
-Part of [Aienix](https://github.com/aien-dev/aienix), the core tree of AIEN. INTERPLANE is one of
-its attachments: it lives in its own repository and plugs into the core at a boundary.
+Part of Sovereign Intelligence (SI). Aienix is retired.
+[sovereign-intelligence](https://github.com/aien-dev/sovereign-intelligence) is the integration,
+release and install center, and the place where the signed Spark test runs. AienOS is only the
+OS layer. INTERPLANE lives in its own repository. See aien-architecture
+[ADR 0045](https://github.com/aien-dev/aien-architecture-mv/blob/main/docs/adr/0045-aienix-retired-sovereign-intelligence-center.md).
 
 **Status (2026-10-18):** live at [interplane.io](https://interplane.io). The current Rust generator
 landed on 2026-10-16 (pull request #4), and the page is rebuilt hourly.
