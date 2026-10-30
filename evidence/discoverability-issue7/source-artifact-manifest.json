@@ -1,0 +1,19 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "tools": {
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)"
+  },
+  "hashes": {
+    "crates/site-builder/src/main.rs": "cd9c0d52f421f1e07544eccc6cf290966da63e2991fc26bd39d9431e423d848c",
+    "crates/site-builder/src/page.rs": "b7d764bea5b8b763bd7e4f2d761da832bcdae2835c0977b6e90f2f75c4ab890f",
+    "crates/site-builder/src/discovery.rs": "31648c880e5728fece6a9c79413cd1a84a78f1bc241032c98e5fe4af66dfcca9",
+    "crates/site-builder/src/facts.rs": "e3ba44bda39b43639b17f03cc71bc2161b21340d88d019026bc2d9e22be82b14",
+    "Cargo.lock": "6b82b81a1b267ba7733309ddd3f35fd42acc94fccd7e4c85d8d471304e850997",
+    "Cargo.toml": "ffab02392d85b7c867f0b03a1a44a4925cceecab71e488110182cd2e19130c61",
+    "crates/site-builder/Cargo.toml": "392f4a20f8d8f59f579db23756374c53f7b80b2cc8895be95a38165659166c7b",
+    "public/style.css": "4ff0c037b21060c2689be8cdd1f80b1c7ce1788121900c9b47af4a1ea8b61234",
+    "public/hero.webp": "366d3a527d4799baea43cba4805de2acef7687f8b92d12b85f8ce5bafd028101",
+    "target/debug/site-builder": "dbba781c8fbd95f2681eef9586d44b7832f9cdedc35eabbc82cf39cb8d83aee8"
+  }
+}

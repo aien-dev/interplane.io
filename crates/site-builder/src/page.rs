@@ -1,10 +1,11 @@
-//! The one page of interplane.io. Editorial copy lives here in Rust; every figure comes from
+//! The six generated pages of interplane.io. Editorial copy lives here in Rust; every figure comes from
 //! `Facts` (read from the protocol repository at a pinned commit) or from a constant below that
 //! names the report it was read from.
 
 use maud::{html, Markup, DOCTYPE};
 
 use crate::facts::{short_date, Facts};
+use crate::routes::{Route,ALL};
 
 pub const TITLE: &str = "INTERPLANE";
 pub const TAGLINE: &str = "The open boundary between AI models and the programs that act for them.";
@@ -52,24 +53,25 @@ fn number(n: u32) -> String {
     out
 }
 
-fn head(facts: &Facts) -> Markup {
+fn head(facts: &Facts, route: Route) -> Markup {
     html! {
         head {
             meta charset="utf-8";
             meta name="viewport" content="width=device-width, initial-scale=1";
-            title { (TITLE) ": " (TAGLINE) }
-            meta name="description" content=(DESCRIPTION);
-            meta property="og:title" content=(TITLE);
-            meta property="og:description" content=(DESCRIPTION);
+            title { (route.title()) }
+            meta name="description" content=(route.description());
+            meta property="og:title" content=(route.title());
+            meta property="og:description" content=(route.description());
             meta property="og:type" content="website";
-            meta property="og:url" content=(SITE_URL);
+            meta property="og:url" content=(route.url());
             meta property="og:image" content={ (SITE_URL) "public/hero.webp" };
             meta name="color-scheme" content="light dark";
             meta name="generator" content={ "site-builder at " (facts.pin.full_name) "@" (&facts.pin.sha[..12.min(facts.pin.sha.len())]) };
-            link rel="canonical" href=(SITE_URL);
+            link rel="canonical" href=(route.url());
             link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101317'/%3E%3Crect x='6' y='15' width='20' height='2' fill='%23f2a93b'/%3E%3C/svg%3E";
-            link rel="stylesheet" href="public/style.css";
-            link rel="alternate" type="application/json" href="facts.json" title="Facts behind this page";
+            link rel="stylesheet" href="/public/style.css";
+            link rel="alternate" type="application/json" href="/facts.json" title="Facts behind this page";
+            (maud::PreEscaped(crate::discovery::script(facts,route)))
         }
     }
 }
@@ -256,45 +258,136 @@ fn status(facts: &Facts) -> Markup {
             }
             p class="fine" {
                 "Generated " (facts.generated_at) ". The data behind this section is published as "
-                a href="facts.json" { "facts.json" } "."
+                a href="/facts.json" { "facts.json" } "."
             }
         }
     }
 }
 
+pub const OFFLINE_PIN: &str = "b669d06e21c9debb15073289d7c0b78b1b2d362c";
+pub const OFFLINE_REPOSITORY: &str = "https://github.com/aien-dev/interplane-mv";
+
+pub fn offline_commands() -> String {
+    format!("git clone {OFFLINE_REPOSITORY}.git interplane\ncd interplane\ngit checkout --detach {OFFLINE_PIN}\ncd rust\ncargo fetch --locked\ncargo run --locked --offline -q -p interplane-crossveil --example offline")
+}
+fn offline_recipe() -> Markup {
+    html! {
+        p { "Prerequisites: Git, a Rust/Cargo toolchain compatible with the repository lockfile, and network access for the clone and dependency fetch. " a href="https://rust-lang.org/tools/install/" { "Install Rust" } ". The scripted example runs offline after these downloads; it uses no model or GPU." }
+        pre { code class="language-sh" aria-label="Pinned offline example commands" { (offline_commands()) } }
+        p { "Expected observation: the final line is " code { "OK: the injected actions were denied or held; none executed." } ". The trace denies email and file-write proposals, holds a note append for approval, and executes no effectful request. This is a reference policy demonstration, not a general security or deployment qualification." }
+        p class="fine" { "Recipe source: " a href={ (OFFLINE_REPOSITORY) "/blob/" (OFFLINE_PIN) "/rust/crates/interplane-crossveil/examples/offline.rs" } { code { (OFFLINE_PIN) } } ". This replay pin is fixed independently of the advancing source-status snapshot below." }
+    }
+}
 fn get_started(facts: &Facts) -> Markup {
     html! {
         section id="start" class="prose" {
-            h2 { "Try it in a minute, offline" }
-            p { "No model, no GPU, no network. A scripted model fetches a page that carries an injected instruction, then asks to send an email, write a file and append a note. The reference pipeline denies the email and the write, holds the note for a person, and executes none of them." }
-            pre { code { "git clone " (facts.pin.url) ".git\ncd interplane/rust\ncargo run -q -p interplane-crossveil --example offline" } }
-            p { "To connect your own program, read " a href=(facts.blob("docs/WRITING-AN-ADAPTER.md")) { "Writing an adapter" } " and run its to-do list example. The conformance suite then checks your adapter the same way it checks the reference." }
+            h2 { "Run the offline reference" }
+            (offline_recipe())
+            p { a href="/quick-start/" { "Quick Start" } " explains the exercise. To connect your own program, follow " a href=(facts.blob("docs/WRITING-AN-ADAPTER.md")) { "the canonical adapter guide" } "." }
         }
     }
+}
+
+fn navigation(current: Route) -> Markup {
+    html! { nav class="docs-nav" aria-label="Documentation" {
+        @for route in ALL {
+            @if route==current {a href=(route.path()) aria-current="page" {(route.label())}}
+            @else {a href=(route.path()) {(route.label())}}
+        }
+    }}
+}
+fn source_record(facts: &Facts) -> Markup {
+    html! { section class="source-record prose" {
+        h2 { "Source and verification" }
+        p { "Status snapshot: " a href={ (facts.pin.url) "/commit/" (facts.pin.sha) } {code {(facts.pin.sha)}} ". Generated " (facts.generated_at) ". " a href="/facts.json" {"Raw facts"} "." }
+        p { "Spark verification: " span class={"pill " (verdict_class(&facts.receipt.state))} {(verdict_word(&facts.receipt))} " " (facts.receipt.description) }
+        p class="fine" { "A successful reference example is not the Spark verdict. Planned work is not implemented support. " a href="/status/" {"Versioned status"} " and " a href=(facts.blob("STATUS.md")) {"canonical STATUS.md"} " retain those distinctions." }
+    }}
+}
+fn doc_content(facts: &Facts, route: Route) -> Markup {
+    match route {
+        Route::QuickStart => html! { section class="prose" {
+            h2 { "Clone, pin, fetch, run" } (offline_recipe())
+            h2 { "What crosses the boundary" }
+            p { "A scripted model requests a page containing an injected instruction, then proposes email, file-write and note-append actions. The page cannot grant authority. Inspect the policy decisions in the trace before treating a successful exit as meaningful." }
+            p { "No installation into a running agent is performed here. Continue with " a href="/concepts/" {"Concepts"} " or " a href="/adapter/" {"Writing an Adapter"} "." }
+        }},
+        Route::Concepts => html! { section class="prose" {
+            h2 { "Intent is not authority" }
+            pre { code class="language-text" aria-label="Model protocol runtime flow" { "Model: proposed intent\n  |\n  v\nINTERPLANE: normalized requests, provenance, policy decisions\n  | eligible request or refusal\n  v\nRuntime: capabilities, approval, execution, results" } }
+            p { "The protocol describes the boundary; it does not give a model permission to act. Runtime-owned capabilities, policy and human approval decide which effects may execute. Untrusted retrieved text is content, never an instruction with runtime authority." }
+            h2 { "Trace each decision" }
+            p { "Follow a model-native proposal through normalization, source labels, a policy decision and the runtime result. Rejected or ambiguous inputs must remain visible as refusals; do not silently repair them into authority." }
+            p { "Canonical sources: " a href=(facts.blob("spec/CORE.md")) {"Core"} ", " a href=(facts.blob("spec/CROSSVEIL.md")) {"Crossveil"} " and " a href=(facts.blob("spec/LENSHIFT.md")) {"Lenshift"} ". The " a href="/quick-start/" {"offline exercise"} " makes this boundary observable." }
+        }},
+        Route::Adapter => html! { section class="prose" {
+            h2 { "Start with the canonical contract" }
+            p { "Use the pinned " a href=(facts.blob("docs/WRITING-AN-ADAPTER.md")) {"Writing an adapter guide"} " for the Rust reference, including its to-do list example and exact interfaces. This page is orientation, not a second SDK or a claim that every runtime has a supported adapter." }
+            ol {
+                li { "Declare only capabilities your runtime actually implements." }
+                li { "Normalize requests without inventing missing or ambiguous arguments." }
+                li { "Keep capability decisions, approval and execution in the host runtime; model text cannot approve itself." }
+                li { "Record results and refusals, then run the canonical conformance checks against the adapter." }
+            }
+            p { "Read " a href="/concepts/" {"Concepts"} " before wiring execution, and " a href="/conformance/" {"Conformance"} " before describing support. Check " a href=(facts.blob("STATUS.md")) {"STATUS.md at the source pin"} " rather than assuming planned stages are available." }
+        }},
+        Route::Conformance => html! { section class="prose" {
+            h2 { "Evidence before a support claim" }
+            p { "The " a href=(facts.blob("conformance/README.md")) {"canonical conformance directory"} " defines its fixtures and runner instructions. The " a href=(facts.blob("docs/WRITING-AN-ADAPTER.md")) {"adapter guide"} " explains how the reference is checked. Follow those pinned commands rather than replacing expected verdicts with newly generated success." }
+            @if let Some(conf)=&facts.conformance {
+                p { "The source STATUS snapshot reports " strong {(conf.passed) " / " (conf.total)} " conformance cases. " (conf.note) }
+            } @else {p {"No conformance count was parsed from this source snapshot; no pass count is inferred."}}
+            p { "These are source-reported results, not a new execution by the website. A failing or blocked Spark run remains failing or blocked in the source record below. Cross-check " a href="/status/" {"Versioned Status"} ", " a href=(facts.blob("STATUS.md")) {"STATUS.md"} " and the stage reports before claiming qualification." }
+            p { "The " a href="/quick-start/" {"small offline exercise"} " is a useful first observation, not a replacement for adapter conformance, failure controls or a live deployment gate." }
+        }},
+        Route::Status => html! { (status(facts)) },
+        Route::Overview => html! {},
+    }
+}
+pub fn render(facts: &Facts) -> String { render_home(facts) }
+pub fn render_route(facts: &Facts, route: Route) -> String {
+    if route==Route::Overview {return render(facts);}
+    html! { (DOCTYPE) html lang="en" {
+        (head(facts,route))
+        body {
+            a class="skip" href="#main" {"Skip to content"}
+            (navigation(route))
+            main id="main" tabindex="-1" class="docs-main" {
+                section class="doc-intro prose" {p class="kicker" {"INTERPLANE / Developer documentation"} h1 {(route.label())} p class="section-lede" {(route.description())} }
+                (doc_content(facts,route)) (source_record(facts))
+            }
+            (footer(facts))
+        }
+    }}.into_string()
 }
 
 fn footer(facts: &Facts) -> Markup {
     html! {
         footer {
-            p { "INTERPLANE is developed in the open by " a href="https://github.com/aien-dev" { "aien-dev" } " as part of " a href="https://www.aienos.com/" { "AIEN" } ". Protocol and reference implementation: " (facts.pin.license) ". " a href=(SITE_REPO) { "This site" } " is built by a small Rust program from the repository's public record; no scripts, no outside fonts, no trackers." }
+            p {"Project context: " a href="https://www.aienos.com/" {"AIEN"} " / " a href="https://drakestapleton.com/" {"Drake Stapleton"} "."}
+            p { "INTERPLANE is developed in the open by " a href="https://github.com/aien-dev" { "aien-dev" } " as part of " a href="https://www.aienos.com/" { "AIEN" } ". Protocol and reference implementation: " (facts.pin.license) ". " a href=(SITE_REPO) { "This site" } " is built by a small Rust program from the repository's public record; no executable scripts, no outside fonts, no trackers." }
+            p { "Development follows Human-Directed Agentic Engineering (HDAE): humans define goals, architecture, constraints, acceptance criteria and stopping points; agents implement, execute checks, diagnose failures and revise within those boundaries. Human review retains responsibility for claims, acceptance and release decisions. This development method is distinct from runtime behavior." }
+            p { "For the documented method and a systems-software case study, see Gregory M. Kurtzer, " a href="https://doi.org/10.5281/zenodo.23682548" { "Ginux: Building an Independent Kernel That Runs Linux Userspace through Human-Directed Agentic Engineering" } " (2026)." }
         }
     }
 }
 
-pub fn render(facts: &Facts) -> String {
+fn render_home(facts: &Facts) -> String {
     let page = html! {
         (DOCTYPE)
         html lang="en" {
-            (head(facts))
+            (head(facts,Route::Overview))
             body {
                 a class="skip" href="#main" { "Skip to content" }
+                (navigation(Route::Overview))
                 (hero(facts))
-                main id="main" {
+                main id="main" tabindex="-1" {
                     (problem())
                     (modules(facts))
                     (receipt(facts))
                     (status(facts))
                     (get_started(facts))
+                    (source_record(facts))
                 }
                 (footer(facts))
             }
