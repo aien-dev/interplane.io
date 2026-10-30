@@ -120,6 +120,15 @@ blockquote { margin: 1.6em 0 0; padding: 0 0 0 18px; border-left: 4px solid var(
 .report-list li { margin-bottom: 10px; }
 .report-list .headline { color: var(--muted); }
 
+/* Shared documentation routes: the existing system-font palette and width. */
+.docs-nav { max-width: 68rem; margin: 0 auto; padding: 18px 16px; display: flex; flex-wrap: wrap; gap: 10px 24px; border-bottom: 1px solid var(--line); font-size: .92rem; }
+.docs-nav a { padding: 4px 0; }
+.docs-nav a[aria-current="page"] { font-weight: 700; text-decoration-color: var(--accent); }
+.docs-main h1 { font-size: clamp(2rem, 5vw, 3rem); }
+.source-record code, .prose p code { overflow-wrap: anywhere; }
+.docs-main ol { padding-left: 1.3em; }
+.docs-main li { margin-bottom: .7em; }
+
 /* Footer */
 footer { padding: 32px 16px 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; }
 

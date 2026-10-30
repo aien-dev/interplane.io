@@ -1,0 +1,794 @@
+[
+  {
+    "url": "/",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "INTERPLANE"
+      },
+      {
+        "level": "H2",
+        "text": "The problem it fixes"
+      },
+      {
+        "level": "H2",
+        "text": "Seven modules, one line"
+      },
+      {
+        "level": "H3",
+        "text": "Core"
+      },
+      {
+        "level": "H3",
+        "text": "Lenshift"
+      },
+      {
+        "level": "H3",
+        "text": "CrossAxis"
+      },
+      {
+        "level": "H3",
+        "text": "Crossveil"
+      },
+      {
+        "level": "H3",
+        "text": "Probe"
+      },
+      {
+        "level": "H3",
+        "text": "Vectorveil"
+      },
+      {
+        "level": "H3",
+        "text": "RelayLine"
+      },
+      {
+        "level": "H2",
+        "text": "One measured result"
+      },
+      {
+        "level": "H2",
+        "text": "Current state"
+      },
+      {
+        "level": "H3",
+        "text": "Roadmap"
+      },
+      {
+        "level": "H3",
+        "text": "Components"
+      },
+      {
+        "level": "H3",
+        "text": "Activity"
+      },
+      {
+        "level": "H3",
+        "text": "Reports, in their own words"
+      },
+      {
+        "level": "H2",
+        "text": "Run the offline reference"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "desktop"
+  },
+  {
+    "url": "/quick-start/",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Quick Start"
+      },
+      {
+        "level": "H2",
+        "text": "Clone, pin, fetch, run"
+      },
+      {
+        "level": "H2",
+        "text": "What crosses the boundary"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "desktop"
+  },
+  {
+    "url": "/concepts/",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Concepts"
+      },
+      {
+        "level": "H2",
+        "text": "Intent is not authority"
+      },
+      {
+        "level": "H2",
+        "text": "Trace each decision"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "desktop"
+  },
+  {
+    "url": "/adapter/",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Writing an Adapter"
+      },
+      {
+        "level": "H2",
+        "text": "Start with the canonical contract"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "desktop"
+  },
+  {
+    "url": "/conformance/",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Conformance"
+      },
+      {
+        "level": "H2",
+        "text": "Evidence before a support claim"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "desktop"
+  },
+  {
+    "url": "/status/",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Versioned Status"
+      },
+      {
+        "level": "H2",
+        "text": "Current state"
+      },
+      {
+        "level": "H3",
+        "text": "Roadmap"
+      },
+      {
+        "level": "H3",
+        "text": "Components"
+      },
+      {
+        "level": "H3",
+        "text": "Activity"
+      },
+      {
+        "level": "H3",
+        "text": "Reports, in their own words"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "desktop"
+  },
+  {
+    "url": "/",
+    "width": 390,
+    "height": 844,
+    "scrollWidth": 390,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "INTERPLANE"
+      },
+      {
+        "level": "H2",
+        "text": "The problem it fixes"
+      },
+      {
+        "level": "H2",
+        "text": "Seven modules, one line"
+      },
+      {
+        "level": "H3",
+        "text": "Core"
+      },
+      {
+        "level": "H3",
+        "text": "Lenshift"
+      },
+      {
+        "level": "H3",
+        "text": "CrossAxis"
+      },
+      {
+        "level": "H3",
+        "text": "Crossveil"
+      },
+      {
+        "level": "H3",
+        "text": "Probe"
+      },
+      {
+        "level": "H3",
+        "text": "Vectorveil"
+      },
+      {
+        "level": "H3",
+        "text": "RelayLine"
+      },
+      {
+        "level": "H2",
+        "text": "One measured result"
+      },
+      {
+        "level": "H2",
+        "text": "Current state"
+      },
+      {
+        "level": "H3",
+        "text": "Roadmap"
+      },
+      {
+        "level": "H3",
+        "text": "Components"
+      },
+      {
+        "level": "H3",
+        "text": "Activity"
+      },
+      {
+        "level": "H3",
+        "text": "Reports, in their own words"
+      },
+      {
+        "level": "H2",
+        "text": "Run the offline reference"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "mobile"
+  },
+  {
+    "url": "/concepts/",
+    "width": 390,
+    "height": 844,
+    "scrollWidth": 390,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Concepts"
+      },
+      {
+        "level": "H2",
+        "text": "Intent is not authority"
+      },
+      {
+        "level": "H2",
+        "text": "Trace each decision"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "mobile"
+  },
+  {
+    "url": "/adapter/",
+    "width": 390,
+    "height": 844,
+    "scrollWidth": 390,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Writing an Adapter"
+      },
+      {
+        "level": "H2",
+        "text": "Start with the canonical contract"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "mobile"
+  },
+  {
+    "url": "/conformance/",
+    "width": 390,
+    "height": 844,
+    "scrollWidth": 390,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Conformance"
+      },
+      {
+        "level": "H2",
+        "text": "Evidence before a support claim"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "mobile"
+  },
+  {
+    "url": "/status/",
+    "width": 390,
+    "height": 844,
+    "scrollWidth": 390,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Versioned Status"
+      },
+      {
+        "level": "H2",
+        "text": "Current state"
+      },
+      {
+        "level": "H3",
+        "text": "Roadmap"
+      },
+      {
+        "level": "H3",
+        "text": "Components"
+      },
+      {
+        "level": "H3",
+        "text": "Activity"
+      },
+      {
+        "level": "H3",
+        "text": "Reports, in their own words"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "mobile"
+  },
+  {
+    "url": "/quick-start/",
+    "width": 390,
+    "height": 844,
+    "scrollWidth": 390,
+    "h1": 1,
+    "headings": [
+      {
+        "level": "H1",
+        "text": "Quick Start"
+      },
+      {
+        "level": "H2",
+        "text": "Clone, pin, fetch, run"
+      },
+      {
+        "level": "H2",
+        "text": "What crosses the boundary"
+      },
+      {
+        "level": "H2",
+        "text": "Source and verification"
+      }
+    ],
+    "nav": [
+      {
+        "href": "/",
+        "name": "Overview"
+      },
+      {
+        "href": "/quick-start/",
+        "name": "Quick Start"
+      },
+      {
+        "href": "/concepts/",
+        "name": "Concepts"
+      },
+      {
+        "href": "/adapter/",
+        "name": "Writing an Adapter"
+      },
+      {
+        "href": "/conformance/",
+        "name": "Conformance"
+      },
+      {
+        "href": "/status/",
+        "name": "Versioned Status"
+      }
+    ],
+    "unnamedLinks": 0,
+    "source": "Source and verification\n\nStatus snapshot: b669d06e21c9debb15073289d7c0b78b1b2d362c. Generated 2026-10-23T01:11:55Z. Raw facts.\n\nSpark verification: FAIL BLOCKED PASS\n\nA successful reference example is not the Spark verdict. Planned work is not implemented support. Versioned status and canonical STATUS.md retain those distinctions.",
+    "tabFocus": "skip",
+    "skipFocus": "main",
+    "viewport": "mobile"
+  }
+]
