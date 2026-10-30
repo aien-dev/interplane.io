@@ -1,0 +1,121 @@
+{
+  "generated_at": "2026-10-23T00:28:53Z",
+  "pin": {
+    "full_name": "aien-dev/interplane-mv",
+    "url": "https://github.com/aien-dev/interplane-mv",
+    "sha": "b669d06e21c9debb15073289d7c0b78b1b2d362c",
+    "committed_at": "2026-10-19T14:16:10Z",
+    "commit_title": "Merge pull request #114 from aien-dev/docs/readme-2026-10-19",
+    "latest_tag": "v0.3.0",
+    "license": "Apache-2.0",
+    "description": "INTERPLANE: open interoperability protocol between AI models and agent runtimes. Models express intent. Runtimes retain authority."
+  },
+  "status": {
+    "rows": 42,
+    "qualified": 3,
+    "conformant": 12,
+    "tested": 13,
+    "implemented": 2,
+    "specified": 1,
+    "other": 11
+  },
+  "conformance": {
+    "passed": 106,
+    "total": 106,
+    "note": "106/106 (verdicts byte-identical to `conformance/expected/verdicts.json`, which the Python runner also produced; CI requires exactly 106)"
+  },
+  "stages": [
+    {
+      "version": "0.1",
+      "layer": "Reality",
+      "goal": "Prove what a model/backend/runtime combination really supports",
+      "state": "reported",
+      "verdict": "",
+      "closed_on": "",
+      "report_url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.1.md"
+    },
+    {
+      "version": "0.2",
+      "layer": "Capability",
+      "goal": "Give small local models the minimum tools required without making them less capable",
+      "state": "closed",
+      "verdict": "FAIL",
+      "closed_on": "2026-10-04",
+      "report_url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.2.md"
+    },
+    {
+      "version": "0.3",
+      "layer": "Trust",
+      "goal": "Preserve the line between content, model intent and runtime authority",
+      "state": "closed",
+      "verdict": "PASS",
+      "closed_on": "2026-10-05",
+      "report_url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.3.md"
+    },
+    {
+      "version": "0.4",
+      "layer": "Execution",
+      "goal": "Multi-round execution without losing the boundary",
+      "state": "next",
+      "verdict": "",
+      "closed_on": "",
+      "report_url": ""
+    },
+    {
+      "version": "0.5",
+      "layer": "Qualification",
+      "goal": "Measured, reproducible model and backend claims",
+      "state": "planned",
+      "verdict": "",
+      "closed_on": "",
+      "report_url": ""
+    }
+  ],
+  "next_stage": "0.4 Execution",
+  "reports": [
+    {
+      "name": "REPORT-0.1.md",
+      "title": "INTERPLANE 0.1 readiness report (2026-10-04)",
+      "headline": "",
+      "url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.1.md"
+    },
+    {
+      "name": "REPORT-0.2.md",
+      "title": "INTERPLANE 0.2 capability report (2026-10-04)",
+      "headline": "the pre-registered CrossAxis gate FAILED.",
+      "url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.2.md"
+    },
+    {
+      "name": "REPORT-0.2x.md",
+      "title": "INTERPLANE 0.2x campaign report (2026-10-05)",
+      "headline": "all four arms FAILED the pre-registered gate, including arm 3, the primary claim.",
+      "url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.2x.md"
+    },
+    {
+      "name": "REPORT-0.3.md",
+      "title": "INTERPLANE 0.3 trust report (2026-10-05)",
+      "headline": "every offline gate of the pre-registered 0.3 protocol PASSED (P, X, I, E, A, N; `bench/PROTOCOL-0.3.md` section 5, thresholds fixed before the run and not changed here).",
+      "url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-0.3.md"
+    },
+    {
+      "name": "REPORT-adapter-repro.md",
+      "title": "Independent adapter reproduction (plan 19.7 item 8)",
+      "headline": "",
+      "url": "https://github.com/aien-dev/interplane-mv/blob/b669d06e21c9debb15073289d7c0b78b1b2d362c/docs/REPORT-adapter-repro.md"
+    }
+  ],
+  "open_issues": 2,
+  "open_prs": 0,
+  "last_merge": {
+    "number": 114,
+    "title": "docs: README matches main on 2026-10-19",
+    "merged_at": "2026-10-19T14:16:11Z",
+    "url": "https://github.com/aien-dev/interplane-mv/pull/114"
+  },
+  "receipt": {
+    "state": "failure",
+    "description": "BLOCKED PASS",
+    "target_url": "https://github.com/aien-dev/interplane-mv/commit/b669d06e21c9debb15073289d7c0b78b1b2d362c",
+    "updated_at": "2026-10-19T14:21:00Z"
+  }
+}

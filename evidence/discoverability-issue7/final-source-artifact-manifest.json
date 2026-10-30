@@ -1,0 +1,8 @@
+{
+  "source_commit": "d29e383e595e9b2d10792d5aa7cf6b73374d96bc",
+  "hashes": {
+    "crates/site-builder/src/main.rs": "9c91c3a5ae48c15793686e12a2ec15ea6a99302504aca9aac69e467f577efdd9",
+    "crates/site-builder/src/discovery.rs": "575adaa3bebdffe62a17da9fe2a2fc093cb16ddb8c74e268ee700e800f4400e2",
+    "target/debug/site-builder": "7ce6e1dcc5db153772b1bd94b7b76b348b7c4c931248616813f3a2e8797e17d0"
+  }
+}

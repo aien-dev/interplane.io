@@ -1,0 +1,11 @@
+{
+  "corrected_source": "87d140195ddcb491fc813ffe951a7a5ce86fce54",
+  "rendered_files_unchanged": 12,
+  "raw_log_sha256": {
+    "remote-src-red.log": "a3f44bab6d3b507a161795e8febb80434e3b5de1b7eb236db8e72371236b8fe3",
+    "post-review-tests.log": "8d69c5a7cae47aa3d7bb9ef3c176bf81124644cc769b554411841b16addd687d"
+  },
+  "release_binary_sha256": "254cb04e3687456d7054fe0ba2ed473b6b2c3bda4fc624bc5f365e5c37ae8687",
+  "independent_review_target": "fcb834efeab2e323dfebf1f9ee761d743770e171",
+  "correction_review": "parent RED/GREEN plus full14-test suite, no second independent review"
+}
