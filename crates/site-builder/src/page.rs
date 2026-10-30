@@ -366,6 +366,8 @@ fn footer(facts: &Facts) -> Markup {
         footer {
             p {"Project context: " a href="https://www.aienos.com/" {"AIEN"} " / " a href="https://drakestapleton.com/" {"Drake Stapleton"} "."}
             p { "INTERPLANE is developed in the open by " a href="https://github.com/aien-dev" { "aien-dev" } " as part of " a href="https://www.aienos.com/" { "AIEN" } ". Protocol and reference implementation: " (facts.pin.license) ". " a href=(SITE_REPO) { "This site" } " is built by a small Rust program from the repository's public record; no executable scripts, no outside fonts, no trackers." }
+            p { "Development follows Human-Directed Agentic Engineering (HDAE): humans define goals, architecture, constraints, acceptance criteria and stopping points; agents implement, execute checks, diagnose failures and revise within those boundaries. Human review retains responsibility for claims, acceptance and release decisions. This development method is distinct from runtime behavior." }
+            p { "For the documented method and a systems-software case study, see Gregory M. Kurtzer, " a href="https://doi.org/10.5281/zenodo.23682548" { "Ginux: Building an Independent Kernel That Runs Linux Userspace through Human-Directed Agentic Engineering" } " (2026)." }
         }
     }
 }
