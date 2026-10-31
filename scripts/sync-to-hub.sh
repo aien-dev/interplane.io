@@ -41,7 +41,7 @@ git merge -q --ff-only origin/main
 HEAD=$(git rev-parse --short=12 HEAD)
 
 export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$REPO/target}"
-cargo build -q --release -p site-builder
+cargo build -q --locked --release -p site-builder
 BIN="$CARGO_TARGET_DIR/release/site-builder"
 
 if "$BIN" facts "$LOGDIR/facts.json" >>"$LOG" 2>&1; then

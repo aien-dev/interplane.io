@@ -30,13 +30,12 @@ writes the JSON-LD block, `robots.txt`, `sitemap.xml` and `llms.txt` and checks 
 3. `crates/site-builder/src/facts.rs`: `gh` and `gh_text` call `gh api` with arguments built from
    the constant `PROTOCOL_REPO` and values read from earlier responses (commit sha, file paths);
    Markdown parsers `status_counts`, `conformance_row`, `headline`, `stages`,
-   `public_description`; status selection by `SPARK_STATUS_CONTEXT`. Note: AGENTS.md names the
-   protocol repository `aien-dev/interplane-mv`, while `PROTOCOL_REPO` is `aien-dev/interplane`;
-   on 2026-10-31 `site-builder facts` reported `aien-dev/interplane-mv@e4ebddd7c9b7`, so GitHub
-   currently redirects the old name; the code still depends on that redirect.
+   `public_description`; status selection by `SPARK_STATUS_CONTEXT`. `PROTOCOL_REPO` is
+   `aien-dev/interplane-mv`, the name AGENTS.md uses; it was `aien-dev/interplane` on `main`,
+   which only worked through GitHub's rename redirect, and this change asks for the real name.
 4. `scripts/sync-to-hub.sh`: skips while the machine's quiet flag is held, clones or fast-forwards
-   `main`, refuses a dirty checkout, builds with `cargo build -q --release -p site-builder` (no
-   `--locked`), falls back to the last good `facts.json` when `facts` fails, refuses on `verify`
+   `main`, refuses a dirty checkout, builds with `cargo build -q --locked --release -p site-builder`
+   (`--locked` added by this change), falls back to the last good `facts.json` when `facts` fails, refuses on `verify`
    failure, compares a `cksum` with the last published one, then `rsync -a --delete` to the web
    host over SSH (excluding `.well-known`). `REPO`, `HUB`, `WEBDIR`, `LOGDIR` come from the
    environment.
@@ -91,8 +90,8 @@ NOT_RUN.
 - Hosted CI (`.github/workflows/ci.yml`, added with this document) runs `cargo build --locked
   --all-targets`, `cargo test --locked` and an SBOM job. It does not run `facts` or `verify`
   against live data.
-- The repository name mismatch in item 3 above.
-- The deploy build does not pass `--locked`.
+- On `main` the deploy build did not pass `--locked` and `PROTOCOL_REPO` named the old
+  repository; both are corrected by this change (items 3 and 4 above).
 - Hosting, TLS and web server configuration are not in this repository.
 
 ## Dependencies and provenance

@@ -7,8 +7,9 @@ use std::process::Command;
 
 use serde::{Deserialize, Serialize};
 
-/// The protocol repository. GitHub follows the rename, so this name keeps working.
-pub const PROTOCOL_REPO: &str = "aien-dev/interplane";
+/// The protocol repository under its current name. The old name `aien-dev/interplane` still
+/// redirects, but a redirect stops working if that name is ever reused, so ask for the real one.
+pub const PROTOCOL_REPO: &str = "aien-dev/interplane-mv";
 
 /// The commit status context under which the Spark judge posts its verdict.
 pub const SPARK_STATUS_CONTEXT: &str = "AIEN Verification (Spark)";
