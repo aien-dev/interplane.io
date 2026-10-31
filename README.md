@@ -1,6 +1,6 @@
 # interplane.io
 
-Source of the website for [INTERPLANE](https://github.com/aien-dev/interplane), the open
+Source of the website for [INTERPLANE](https://github.com/aien-dev/interplane-mv), the open
 interoperability protocol between AI models and agent runtimes.
 
 Part of Sovereign Intelligence (SI). Aienix is retired.
@@ -35,7 +35,7 @@ page names the commit it was read at and links to it. The editorial copy lives i
 ## Build
 
 ```
-cargo build --release -p site-builder
+cargo build --locked --release -p site-builder
 target/release/site-builder facts            # needs `gh` logged in; writes facts.json
 target/release/site-builder build dist       # renders all six routes, copies public/, facts.json
 target/release/site-builder verify dist
