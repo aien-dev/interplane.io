@@ -52,5 +52,7 @@ Only the default branch `main`, which is what the hourly job publishes. Reports 
 
 ## Status
 
-The live site is built from `main` by the hourly job (AGENTS.md). No hosted CI workflow is tracked
-at this revision. No certification, no bug bounty. See AUDIT_SCOPE.md for what to review and how to build and test it.
+The live site is built from `main` by the hourly job (AGENTS.md). Hosted CI
+(`.github/workflows/ci.yml`) builds and tests the crate with `--locked` on pull requests and
+pushes to `main`. No certification, no bug bounty. See AUDIT_SCOPE.md for what to review and how
+to build and test it.
